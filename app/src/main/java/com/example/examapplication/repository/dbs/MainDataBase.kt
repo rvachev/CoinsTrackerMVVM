@@ -11,20 +11,6 @@ import com.example.examapplication.repository.entities.Data
 @Database(entities = [(Data::class)], version = 1)
 abstract class MainDataBase: RoomDatabase(){
 
-    private var instance: MainDataBase? = null
-
     abstract fun coinDao(): CoinDao
 
-    fun getInstance(context: Context): MainDataBase?{
-        if(instance == null){
-            synchronized(this){
-                if(instance == null){
-                    instance = Room.databaseBuilder(context.applicationContext,
-                        MainDataBase::class.java, "main")
-                        .build()
-                }
-            }
-        }
-        return instance
-    }
 }

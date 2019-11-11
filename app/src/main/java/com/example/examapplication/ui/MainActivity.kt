@@ -1,6 +1,7 @@
 package com.example.examapplication.ui
 
 import android.content.Intent
+import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.examapplication.R
 import com.example.examapplication.adapters.GridLayoutAdapter
 import com.example.examapplication.presentation.MainViewModel
+import com.example.examapplication.repository.dbs.MainDataBase
 import com.example.examapplication.repository.entities.Data
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.grid_element.*
