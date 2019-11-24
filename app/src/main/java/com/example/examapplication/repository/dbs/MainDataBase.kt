@@ -1,8 +1,6 @@
 package com.example.examapplication.repository.dbs
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.examapplication.repository.dao.CoinDao
 import com.example.examapplication.repository.entities.Data

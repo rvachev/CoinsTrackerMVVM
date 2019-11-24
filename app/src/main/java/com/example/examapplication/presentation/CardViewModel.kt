@@ -1,15 +1,40 @@
 package com.example.examapplication.presentation
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.examapplication.repository.DatabaseRepository
+import androidx.lifecycle.liveData
+import com.example.examapplication.repository.CoinRepository
 import com.example.examapplication.repository.entities.Data
+import kotlinx.coroutines.Dispatchers
 
-class CardViewModel(context: Context): ViewModel() {
+class CardViewModel : ViewModel() {
 
-    private val repository = DatabaseRepository().getInstance(context)
+    private var response: LiveData<Data>? = null
 
-    fun getCoinById(id: String): LiveData<Data> = repository!!.coinDao().getById(id)
+    /*fun getCoin(id: String) = liveData(Dispatchers.IO) {
+        val coin = CoinRepository.getCoins(20)
+
+        val filter = coin!!.data.single {
+            it.name == id
+        }
+        emit(filter)
+    }*/
+
+    fun getCoin(id: String): LiveData<Data>?{
+        response?.let{
+            return response
+        } ?: run{
+            response = liveData(Dispatchers.IO) {
+                val coin = CoinRepository.getCoins(20)
+
+                val filter = coin!!.data.single{
+                    it.name == id
+                }
+
+                emit(filter)
+            }
+            return response
+        }
+    }
 
 }

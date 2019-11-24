@@ -1,5 +1,6 @@
 package com.example.examapplication.ui
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -22,21 +23,24 @@ class CardActivity : AppCompatActivity() {
         initUI(coinId)
     }
 
-    fun initUI(id: String){
+    @SuppressLint("StringFormatInvalid")
+    fun initUI(id: String) {
         val viewModel = ViewModelProviders.of(this).get(CardViewModel::class.java)
 
-        viewModel.getCoinById(id).observe(this, Observer {data ->
-            cryptoName.text = data.name + " - " + data.symbol
-            cryptoPrice.text = formating.format(data.priceUsd)
-            cryptoChange.text = formating.format(data.changePercent24Hr)
-            if (data.changePercent24Hr > 0.0){
-                growImage.visibility = View.VISIBLE
+        val resource = resources
+        viewModel.getCoin(id)?.observe(this, Observer { data ->
+            cryptoName.text =
+                String.format(resource.getString(R.string.name), data.name, data.symbol)
+            cryptoPrice.text =
+                String.format(resource.getString(R.string.price), formating.format(data.priceUsd))
+            cryptoChange.text = String.format(
+                resource.getString(R.string.changing),
+                formating.format(data.changePercent24Hr)
+            )
+            if (data.changePercent24Hr >= 0.0) {
                 growImage.setImageResource(R.drawable.ic_grow_up)
-            }else if (data.changePercent24Hr < 0.0){
-                growImage.visibility = View.VISIBLE
+            } else {
                 growImage.setImageResource(R.drawable.ic_grow_down)
-            }else{
-                growImage.visibility = View.INVISIBLE
             }
         })
 

@@ -1,23 +1,28 @@
 package com.example.examapplication.repository
 
 import com.example.examapplication.repository.api.CoinService
+import com.example.examapplication.repository.entities.CurrentData
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
-class CoinRepository{
+object CoinRepository {
 
-    private var retrofit: Retrofit? = null
-    private val service = getInstance()!!.create(CoinService::class.java)
+    private var currentData: CurrentData? = null
+    private val service by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://api.coincap.io")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CoinService::class.java)
+    }
 
-    suspend fun getCoins(limit: Int) = service.getAllCoins(limit)
-
-    private fun getInstance(): Retrofit?{
-        if(retrofit == null){
-            retrofit = Retrofit.Builder()
-                .baseUrl("https://api.coincap.io")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+    suspend fun getCoins(limit: Int): CurrentData? {
+        currentData?.let {
+            return it
+        } ?: run {
+            currentData = service.getAllCoins(limit)
+            return currentData
         }
-        return retrofit
     }
 }
