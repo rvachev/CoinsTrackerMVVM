@@ -30,7 +30,7 @@ class RecyclerViewAdapter(private val coinList: List<Data>, private val context:
 
     class CoinHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val item: View = itemView
-        private val formating = DecimalFormat("#.##")
+        private val formatting = DecimalFormat("#.##")
 
         init {
             item.setOnClickListener {
@@ -45,7 +45,7 @@ class RecyclerViewAdapter(private val coinList: List<Data>, private val context:
             itemView.text.text = coin.name
             itemView.coinCost.text = String.format(
                 item.resources.getString(R.string.price),
-                formating.format(coin.priceUsd)
+                formatting.format(coin.priceUsd)
             )
             itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }

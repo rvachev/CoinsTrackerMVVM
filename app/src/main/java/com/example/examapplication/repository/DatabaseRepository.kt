@@ -4,20 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import com.example.examapplication.repository.dbs.MainDataBase
 
-class DatabaseRepository{
+class DatabaseRepository(private val context: Context){
 
-    private var instance: MainDataBase? = null
-
-    fun getInstance(context: Context): MainDataBase?{
-        if(instance == null){
-            synchronized(this){
-                if(instance == null){
-                    instance = Room.databaseBuilder(context.applicationContext,
-                        MainDataBase::class.java, "main")
-                        .build()
-                }
-            }
-        }
-        return instance
+    private val instance by lazy{
+        Room.databaseBuilder(context.applicationContext,
+            MainDataBase::class.java, "main").build()
     }
 }

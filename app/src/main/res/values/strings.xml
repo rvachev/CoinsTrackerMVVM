@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Exam Application</string>
+    <string name="app_name">Криптовалюта</string>
     <string name="name">%1$s - %2$s</string>
     <string name="price">%1$s $</string>
     <string name="changing">%1$s %%</string>
+    <string name="menu_name">По названию</string>
+    <string name="menu_cost">По стоимости</string>
+    <string name="menu_rank">По рангу</string>
 </resources>

@@ -25,9 +25,9 @@ class CardViewModel : ViewModel() {
             return response
         } ?: run{
             response = liveData(Dispatchers.IO) {
-                val coin = CoinRepository.getCoins(20)
+                val coin = CoinRepository.getCoins(100)
 
-                val filter = coin!!.data.single{
+                val filter = coin.data.single{
                     it.name == id
                 }
 

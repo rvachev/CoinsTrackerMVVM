@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 
 class MainViewModel : ViewModel() {
 
-    private var response: LiveData<CurrentData?>? = null
+    private var response: LiveData<CurrentData>? = null
 
     /*fun getCoins() = liveData(Dispatchers.IO) {
         val responseList = CoinRepository.getCoins(20)
@@ -17,16 +17,25 @@ class MainViewModel : ViewModel() {
         emit(responseList)
     }*/
 
-    fun getCoins(): LiveData<CurrentData?>?{
+    fun getCoins(): LiveData<CurrentData>{
         response?.let {
-            return response
+            return response as LiveData<CurrentData>
         } ?: run {
-            response = liveData(Dispatchers.IO) {
-                val responseList = CoinRepository.getCoins(20)
+            val livedata = liveData(Dispatchers.IO) {
+                val responseList = CoinRepository.getCoins(100)
                 emit(responseList)
             }
-            return response
+            response = livedata
+            return livedata
         }
+    }
+
+    fun updateCoins(): LiveData<CurrentData>{
+        response = liveData(Dispatchers.IO) {
+            val responseList = CoinRepository.updateCoins(100)
+            emit(responseList)
+        }
+        return response as LiveData<CurrentData>
     }
 
 }

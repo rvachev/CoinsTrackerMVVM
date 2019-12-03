@@ -17,12 +17,18 @@ object CoinRepository {
             .create(CoinService::class.java)
     }
 
-    suspend fun getCoins(limit: Int): CurrentData? {
+    suspend fun getCoins(limit: Int): CurrentData {
         currentData?.let {
             return it
         } ?: run {
-            currentData = service.getAllCoins(limit)
-            return currentData
+            val data = service.getAllCoins(limit)
+            currentData = data
+            return data
         }
+    }
+
+    suspend fun updateCoins(limit: Int): CurrentData{
+        currentData = service.getAllCoins(limit)
+        return currentData as CurrentData
     }
 }

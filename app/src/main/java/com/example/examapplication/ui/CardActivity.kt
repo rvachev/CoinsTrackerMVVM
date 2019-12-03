@@ -3,7 +3,6 @@ package com.example.examapplication.ui
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.examapplication.R
@@ -13,7 +12,7 @@ import java.text.DecimalFormat
 
 class CardActivity : AppCompatActivity() {
 
-    private val formating = DecimalFormat("#.##")
+    private val formatting = DecimalFormat("#.##")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +31,10 @@ class CardActivity : AppCompatActivity() {
             cryptoName.text =
                 String.format(resource.getString(R.string.name), data.name, data.symbol)
             cryptoPrice.text =
-                String.format(resource.getString(R.string.price), formating.format(data.priceUsd))
+                String.format(resource.getString(R.string.price), formatting.format(data.priceUsd))
             cryptoChange.text = String.format(
                 resource.getString(R.string.changing),
-                formating.format(data.changePercent24Hr)
+                formatting.format(data.changePercent24Hr)
             )
             if (data.changePercent24Hr >= 0.0) {
                 growImage.setImageResource(R.drawable.ic_grow_up)
